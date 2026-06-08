@@ -1,0 +1,33 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: kys-wl
+    restart: always
+    environment:
+      - NODE_ENV=production
+      - DATABASE_PATH=/app/data/kys.db
+    volumes:
+      # Persistance de la base SQLite (inscriptions) — critique.
+      - /docker/kys_wl/app/data:/app/data
+    networks:
+      - proxy
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=proxy
+      - traefik.http.routers.kyswl.entrypoints=websecure
+      - "traefik.http.routers.kyswl.rule=Host(`kys-wl.srv1301090.hstgr.cloud`)"
+      - traefik.http.routers.kyswl.tls=true
+      - traefik.http.routers.kyswl.tls.certresolver=mytlschallenge
+      - traefik.http.services.kyswl.loadbalancer.server.port=3000
+      - traefik.http.routers.kyswl.middlewares=kyswl-headers@docker
+      - traefik.http.middlewares.kyswl-headers.headers.browserXSSFilter=true
+      - traefik.http.middlewares.kyswl-headers.headers.contentTypeNosniff=true
+      - traefik.http.middlewares.kyswl-headers.headers.stsIncludeSubdomains=true
+      - traefik.http.middlewares.kyswl-headers.headers.stsPreload=true
+      - traefik.http.middlewares.kyswl-headers.headers.stsSeconds=31536000
+
+networks:
+  proxy:
+    external: true

@@ -1,26 +1,39 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Charte KYS — bleus de l'affiche officielle */
+  --color-marine: #1b3a6b;
+  --color-marine-soft: #1e4178;
+  --color-marine-deep: #14305a;
+  --color-azur: #4a90d9;
+  --color-azur-soft: #5b9bd5;
+  --color-ciel: #eaf2fb;
+  --color-ciel-deep: #d6e6fa;
+
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-bricolage);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  body {
+    @apply bg-white font-sans text-marine;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Titres oversized = pièce maîtresse visuelle (PRD §3) */
+  h1,
+  h2,
+  h3 {
+    @apply font-display tracking-tight text-balance;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

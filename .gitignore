@@ -39,3 +39,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# base SQLite locale (le dossier data/ est monté sur un volume Docker)
+/data/*.db
+/data/*.db-shm
+/data/*.db-wal
+!/data/.gitkeep
+
+# visuels sources (originaux lourds, les WebP de public/visuels font foi)
+/temp_images
+
+# settings Claude Code locaux (machine-specific)
+.claude/settings.local.json
