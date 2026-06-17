@@ -47,8 +47,8 @@ export default function OffreFondateurs() {
           <>
             Soyez parmi les {seuil} premiers et recevez votre diagnostic
             dentaire complet{" "}
-            <span className="font-semibold text-azur">gratuitement</span> dès
-            l&apos;ouverture.
+            <span className="font-semibold text-azur">gratuitement</span>{" "}
+            dès l&apos;ouverture.
           </>
         ) : (
           <>
