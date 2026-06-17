@@ -12,7 +12,7 @@ export default function HeroSection() {
     >
       <div className="mx-auto flex min-h-[100svh] w-full max-w-md flex-col px-5 pb-12 pt-6 sm:max-w-xl lg:max-w-2xl">
         <header className="flex items-center">
-          <KysLogo size="lg" />
+          <KysLogo size="lg" priority />
         </header>
 
         <div className="flex flex-1 flex-col justify-center gap-6 py-8">
