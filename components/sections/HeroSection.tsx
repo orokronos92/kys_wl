@@ -31,7 +31,7 @@ export default function HeroSection() {
         </div>
 
         <Visuel
-          src="/visuels/hero-famille.webp"
+          src="/visuels/hero-famille-v2.webp"
           width={750}
           height={577}
           priority
