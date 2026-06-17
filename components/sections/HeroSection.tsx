@@ -10,12 +10,12 @@ export default function HeroSection() {
       id="hero"
       className="relative overflow-hidden bg-gradient-to-b from-ciel to-white"
     >
-      <div className="mx-auto flex min-h-[100svh] w-full max-w-md flex-col px-5 pb-12 pt-6 sm:max-w-xl lg:max-w-2xl">
+      <div className="mx-auto flex min-h-[100svh] w-full max-w-md flex-col px-5 pb-12 pt-3 sm:max-w-xl lg:max-w-2xl">
         <header className="flex items-center">
           <KysLogo size="lg" priority />
         </header>
 
-        <div className="flex flex-1 flex-col justify-center gap-6 py-8">
+        <div className="flex flex-1 flex-col justify-center gap-6 pb-8 pt-4">
           <h1 className="text-[2rem] font-extrabold leading-[1.1] text-marine sm:text-5xl">
             Parce que votre sourire a{" "}
             <span className="text-azur">une mémoire.</span>
