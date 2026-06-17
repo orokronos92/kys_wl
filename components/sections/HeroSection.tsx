@@ -17,20 +17,23 @@ export default function HeroSection() {
 
         <div className="flex flex-1 flex-col justify-center gap-6 py-8">
           <h1 className="text-[2rem] font-extrabold leading-[1.1] text-marine sm:text-5xl">
-            Le sourire de votre famille mérite plus qu&apos;un rendez-vous,{" "}
-            <span className="text-azur">mais une protection pour la vie.</span>
+            Parce que votre sourire a{" "}
+            <span className="text-azur">une mémoire.</span>
           </h1>
           <p className="text-base leading-relaxed text-marine/70 sm:text-lg">
-            Et si protéger votre famille commençait par une vraie action ?
-            Rejoignez les premiers inscrits.
+            Kys sauvegarde vos données dentaires numériques{" "}
+            <span className="font-semibold text-azur">gratuitement</span>, pour
+            que votre parcours de soin reste le vôtre et que votre dentiste
+            dispose toujours des informations dont il a besoin pour vous soigner
+            au mieux.
           </p>
           <EmailSignupForm buttonLabel="Je protège ma famille" />
         </div>
 
         <Visuel
           src="/visuels/hero-famille.webp"
-          width={1122}
-          height={1402}
+          width={750}
+          height={577}
           priority
           alt="Famille souriante — deux parents et deux enfants, sourires naturels, lumière douce dans un intérieur clair bleu et blanc."
         />

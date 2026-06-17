@@ -10,8 +10,8 @@ interface KysLogoProps {
 
 // Logo officiel KYS (picto dent + mot « Kys »), fourni par le client.
 // Asset détouré sur fond transparent : public/visuels/logo-kys.webp.
-const LOGO_RATIO = 360 / 253;
-const HEIGHTS = { md: 40, lg: 56 } as const;
+const LOGO_RATIO = 1081 / 760;
+const HEIGHTS = { md: 40, lg: 128 } as const;
 
 export default function KysLogo({
   className,
