@@ -24,7 +24,7 @@ export default function ProblemSection() {
           </p>
           <p>
             Pourtant, à chaque empreinte dentaire, des informations sur votre
-            santé sont produites. Puis{" "}
+            santé sont produites. Mais elles ne sont{" "}
             <span className="font-semibold text-white">
               jamais analysées, jamais transmises, jamais conservées
             </span>{" "}

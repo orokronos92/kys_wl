@@ -16,17 +16,19 @@ export default function HeroSection() {
         </header>
 
         <div className="flex flex-1 flex-col justify-center gap-6 pb-8 pt-2">
-          <h1 className="text-[2rem] font-extrabold leading-[1.1] text-marine sm:text-5xl">
-            Parce que votre sourire a{" "}
-            <span className="text-azur">une mémoire.</span>
-          </h1>
-          <p className="text-base leading-relaxed text-marine/70 sm:text-lg">
-            Kys sauvegarde vos données dentaires numériques{" "}
-            <span className="font-semibold text-azur">gratuitement</span>, pour
-            que votre parcours de soin reste le vôtre et que votre dentiste
-            dispose toujours des informations dont il a besoin pour vous soigner
-            au mieux.
-          </p>
+          <div className="flex flex-col gap-1">
+            <h1 className="text-[2rem] font-extrabold leading-[1.1] text-marine sm:text-5xl">
+              Parce que votre sourire a{" "}
+              <span className="text-azur">une mémoire.</span>
+            </h1>
+            <p className="text-base leading-relaxed text-marine/70 sm:text-lg">
+              Kys sauvegarde vos données dentaires numériques{" "}
+              <span className="font-semibold text-azur">gratuitement</span>,
+              pour que votre parcours de soin reste le vôtre et que votre
+              dentiste dispose toujours des informations dont il a besoin pour
+              vous soigner au mieux.
+            </p>
+          </div>
           <EmailSignupForm buttonLabel="Je protège ma famille" />
         </div>
 

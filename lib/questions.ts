@@ -61,7 +61,7 @@ export const questions: Question[] = [
   {
     id: "q3",
     title:
-      "Dans votre vie de famille, que faites-vous concrètement pour prévenir les problèmes de santé ?",
+      "Dans votre vie de famille, que faites-vous concrètement pour prévenir les problèmes de santé dentaire ?",
     options: [
       {
         code: "rdv_annuel",
