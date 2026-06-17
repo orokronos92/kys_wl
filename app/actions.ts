@@ -1,9 +1,10 @@
 "use server";
 
-import { eq } from "drizzle-orm";
+import { count, eq } from "drizzle-orm";
 import { db } from "@/db";
-import { inscriptions, reponses } from "@/db/schema";
+import { inscriptions, parametresOffre, reponses } from "@/db/schema";
 import type { QuestionId } from "@/lib/questions";
+import { OFFRE_DEFAUTS, type OffreState } from "@/lib/offre";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -17,6 +18,30 @@ export interface ActionResult {
   ok: boolean;
   error?: string;
   dejaInscrit?: boolean;
+  rang?: number;
+  estFondateur?: boolean;
+  placesRestantes?: number;
+}
+
+// Paramètres de l'offre fondateurs, avec repli si la ligne n'est pas seedée.
+function lireParametresOffre() {
+  const [p] = db.select().from(parametresOffre).where(eq(parametresOffre.id, 1)).all();
+  return {
+    seuil: p?.seuil ?? OFFRE_DEFAUTS.seuil,
+    placesOffset: p?.placesOffset ?? OFFRE_DEFAUTS.placesOffset,
+    offreActive: p?.offreActive ?? OFFRE_DEFAUTS.offreActive,
+  };
+}
+
+// État de l'offre pour le compteur affiché sur le site (lecture seule, temps réel).
+export async function getOffreState(): Promise<OffreState> {
+  const { seuil, placesOffset, offreActive } = lireParametresOffre();
+  const [{ total }] = db
+    .select({ total: count() })
+    .from(inscriptions)
+    .all();
+  const placesRestantes = Math.max(0, seuil - (placesOffset + total));
+  return { seuil, placesRestantes, offreActive: offreActive && placesRestantes > 0 };
 }
 
 // Enregistre un inscrit + ses réponses, liés par l'email (RGPD §8).
@@ -37,13 +62,24 @@ export async function inscrire(input: InscriptionInput): Promise<ActionResult> {
   try {
     // Inscription + réponses dans une seule transaction : pas d'inscrit orphelin
     // sans réponses si le second insert échoue (better-sqlite3 = transaction sync).
-    db.transaction((tx) => {
+    // Le rang et le statut fondateur sont figés ici (COUNT atomique, pas de course).
+    const { seuil, placesOffset, offreActive } = lireParametresOffre();
+    const resultat = db.transaction((tx) => {
+      const [{ total }] = tx
+        .select({ total: count() })
+        .from(inscriptions)
+        .all();
+      const rang = total + 1;
+      const estFondateur = offreActive && placesOffset + rang <= seuil;
+
       const [inscription] = tx
         .insert(inscriptions)
         .values({
           email,
           consentement: true,
           consentementAt: new Date(),
+          rang,
+          estFondateur,
         })
         .returning({ id: inscriptions.id })
         .all();
@@ -57,9 +93,12 @@ export async function inscrire(input: InscriptionInput): Promise<ActionResult> {
           q3Prevention: input.answers.q3 ?? null,
         })
         .run();
+
+      const placesRestantes = Math.max(0, seuil - (placesOffset + total + 1));
+      return { rang, estFondateur, placesRestantes };
     });
 
-    return { ok: true };
+    return { ok: true, ...resultat };
   } catch (error) {
     if (
       error &&

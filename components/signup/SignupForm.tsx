@@ -4,6 +4,7 @@ import { useState, useTransition, type FormEvent } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useWaitlist } from "@/components/WaitlistProvider";
 import { inscrire } from "@/app/actions";
+import OffreFondateurs from "./OffreFondateurs";
 import RgpdNotice from "./RgpdNotice";
 import ConfirmationScreen from "./ConfirmationScreen";
 
@@ -13,7 +14,11 @@ export default function SignupForm() {
   const { email, setEmail, answers } = useWaitlist();
   const [consent, setConsent] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [done, setDone] = useState<{ dejaInscrit?: boolean } | null>(null);
+  const [done, setDone] = useState<{
+    dejaInscrit?: boolean;
+    rang?: number;
+    estFondateur?: boolean;
+  } | null>(null);
   const [pending, startTransition] = useTransition();
   const reduce = useReducedMotion();
 
@@ -26,23 +31,30 @@ export default function SignupForm() {
     }
     startTransition(async () => {
       const res = await inscrire({ email, consentement: consent, answers });
-      if (res.ok) setDone({ dejaInscrit: res.dejaInscrit });
+      if (res.ok)
+        setDone({
+          dejaInscrit: res.dejaInscrit,
+          rang: res.rang,
+          estFondateur: res.estFondateur,
+        });
       else setError(res.error ?? "Une erreur est survenue.");
     });
   }
 
   if (done) {
-    return <ConfirmationScreen email={email} dejaInscrit={done.dejaInscrit} />;
+    return (
+      <ConfirmationScreen
+        email={email}
+        dejaInscrit={done.dejaInscrit}
+        rang={done.rang}
+        estFondateur={done.estFondateur}
+      />
+    );
   }
 
   return (
     <div className="rounded-3xl bg-white p-6 shadow-xl shadow-marine/5 ring-1 ring-inset ring-ciel-deep sm:p-8">
-      <h2 className="text-2xl font-bold leading-snug text-marine">
-        Rejoignez la liste d&apos;attente
-      </h2>
-      <p className="mt-2 text-marine/70">
-        Soyez parmi les premiers à protéger le sourire de votre famille.
-      </p>
+      <OffreFondateurs />
 
       <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
         <input

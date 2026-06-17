@@ -15,6 +15,13 @@
       "when": 1780846993479,
       "tag": "0001_tough_lord_hawal",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1781692645015,
+      "tag": "0002_lovely_plazm",
+      "breakpoints": true
     }
   ]
 }

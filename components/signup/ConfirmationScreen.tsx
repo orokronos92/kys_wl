@@ -8,6 +8,8 @@ import { ToothIcon } from "@/components/icons/PillarIcons";
 interface ConfirmationScreenProps {
   email: string;
   dejaInscrit?: boolean;
+  rang?: number;
+  estFondateur?: boolean;
 }
 
 // Écran de confirmation après inscription (PRD §5).
@@ -15,6 +17,8 @@ interface ConfirmationScreenProps {
 export default function ConfirmationScreen({
   email,
   dejaInscrit,
+  rang,
+  estFondateur,
 }: ConfirmationScreenProps) {
   const [verbatim, setVerbatim] = useState("");
   const [envoye, setEnvoye] = useState(false);
@@ -50,6 +54,20 @@ export default function ConfirmationScreen({
         Merci de votre confiance. On vous tient au courant du lancement de KYS,
         directement par e-mail.
       </p>
+
+      {!dejaInscrit && rang ? (
+        estFondateur ? (
+          <p className="mx-auto mt-4 max-w-sm rounded-2xl bg-ciel/60 px-4 py-3 text-sm font-semibold text-marine ring-1 ring-inset ring-ciel-deep">
+            🎉 Vous êtes le {rang === 1 ? "1ᵉʳ" : `${rang}ᵉ`} inscrit — votre
+            diagnostic dentaire offert est réservé.
+          </p>
+        ) : (
+          <p className="mx-auto mt-4 max-w-sm rounded-2xl bg-ciel/60 px-4 py-3 text-sm font-medium text-marine/80 ring-1 ring-inset ring-ciel-deep">
+            Vous êtes le {rang === 1 ? "1ᵉʳ" : `${rang}ᵉ`} inscrit sur la liste
+            d&apos;attente.
+          </p>
+        )
+      ) : null}
 
       {!envoye ? (
         <form onSubmit={handleVerbatim} className="mt-8 text-left">
