@@ -30,7 +30,7 @@ const piliers = [
     icon: <HeartIcon className="h-6 w-6" />,
     title: "Confiance durable",
     description:
-      "Vos données de sourire, sauvegardées et sécurisées dans le temps, accessibles quand vous en avez besoin.",
+      "Votre empreinte numérique existe sans doute déjà : autant la sécuriser. Vos données de sourire, sauvegardées et sécurisées dans le temps, accessibles quand vous en avez besoin !",
   },
 ];
 
