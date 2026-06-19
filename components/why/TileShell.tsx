@@ -44,15 +44,15 @@ export default function TileShell({
       }}
       className="flex flex-col rounded-2xl bg-white p-3.5 ring-1 ring-inset ring-ciel-deep"
     >
-      <div className="flex items-center gap-2">
+      <div className="flex items-start gap-2">
         <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-ciel text-azur ring-1 ring-inset ring-ciel-deep">
           {icon}
         </span>
         <div className="min-w-0">
-          <h3 className="truncate text-sm font-bold leading-tight text-marine">
+          <h3 className="text-sm font-bold leading-tight text-marine">
             {data.titre}
           </h3>
-          <p className="truncate text-xs font-medium text-azur">
+          <p className="text-xs font-medium leading-tight text-azur">
             {data.soustitre}
           </p>
         </div>
