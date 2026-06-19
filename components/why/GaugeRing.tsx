@@ -1,25 +1,27 @@
 "use client";
 
-import { useRef, type ReactNode } from "react";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import type { ReactNode } from "react";
 
 interface GaugeRingProps {
-  /** Valeur 0-100 ; détermine le remplissage de l'anneau. */
+  /** Valeur 0-100 ; remplissage de l'anneau. */
   value: number;
   size?: number;
   stroke?: number;
+  /** Lance le remplissage ; piloté par la visibilité de la carte. */
+  active?: boolean;
   children?: ReactNode;
 }
 
-// Jauge circulaire SVG : l'anneau azur se remplit jusqu'à `value`% au scroll.
+// Jauge circulaire SVG : l'anneau azur se remplit jusqu'à `value`% quand actif.
+// Rejouable en remontant le composant via une `key`.
 export default function GaugeRing({
   value,
-  size = 96,
-  stroke = 9,
+  size = 84,
+  stroke = 8,
+  active = true,
   children,
 }: GaugeRingProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.6 });
   const reduce = useReducedMotion();
   const r = (size - stroke) / 2;
   const circ = 2 * Math.PI * r;
@@ -27,7 +29,6 @@ export default function GaugeRing({
 
   return (
     <div
-      ref={ref}
       className="relative inline-flex items-center justify-center"
       style={{ width: size, height: size }}
     >
@@ -52,7 +53,7 @@ export default function GaugeRing({
           className="text-azur"
           strokeDasharray={circ}
           initial={{ strokeDashoffset: circ }}
-          animate={{ strokeDashoffset: inView ? offset : circ }}
+          animate={{ strokeDashoffset: active ? offset : circ }}
           transition={{ duration: reduce ? 0 : 1.1, ease: [0.22, 1, 0.36, 1] }}
         />
       </svg>

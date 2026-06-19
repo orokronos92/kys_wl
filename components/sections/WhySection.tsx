@@ -4,15 +4,12 @@ import CarteSuivi from "./why/CarteSuivi";
 import CarteUsure from "./why/CarteUsure";
 import CartePlaque from "./why/CartePlaque";
 
-// Section « Pourquoi agir tôt ? » — 4 cartes chiffrées, une data-viz distincte chacune.
-// Placée juste avant l'inscription : « voilà pourquoi » → « rejoignez la liste ».
+// Section « Pourquoi agir tôt ? » — une grande carte contenant 4 tuiles (2×2,
+// visibles d'un coup même sur mobile). Détail dépliable au tap, animations en boucle.
 export default function WhySection() {
   return (
-    <SectionWrapper
-      id="pourquoi-agir"
-      className="bg-gradient-to-b from-ciel to-white"
-    >
-      <div className="mx-auto w-full max-w-md px-5 py-20 sm:max-w-xl lg:max-w-3xl">
+    <SectionWrapper id="pourquoi-agir" className="bg-white">
+      <div className="mx-auto w-full max-w-md px-5 py-20 sm:max-w-xl lg:max-w-2xl">
         <p className="text-sm font-semibold uppercase tracking-widest text-azur">
           Le constat chiffré
         </p>
@@ -24,11 +21,13 @@ export default function WhySection() {
           ne pas attendre.
         </p>
 
-        <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <CarteCaries index={0} />
-          <CarteSuivi index={1} />
-          <CarteUsure index={2} />
-          <CartePlaque index={3} />
+        <div className="mt-8 rounded-3xl bg-ciel p-3 shadow-xl shadow-marine/5 ring-1 ring-inset ring-ciel-deep sm:p-4">
+          <div className="grid grid-cols-2 gap-3">
+            <CarteCaries index={0} />
+            <CarteSuivi index={1} />
+            <CarteUsure index={2} />
+            <CartePlaque index={3} />
+          </div>
         </div>
       </div>
     </SectionWrapper>

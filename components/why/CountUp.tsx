@@ -1,30 +1,33 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useInView, useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
 
 interface CountUpProps {
   to: number;
   durationMs?: number;
   suffix?: string;
   className?: string;
+  /** Démarre le décompte ; piloté par la visibilité de la carte. */
+  active?: boolean;
 }
 
-// Compteur qui s'incrémente de 0 à `to` lorsqu'il entre dans le viewport.
-// Respecte prefers-reduced-motion (affiche directement la valeur finale).
+// Compteur 0 → `to`. Démarre quand `active` passe à true. Pour rejouer,
+// on remonte le composant via une `key` (cf. useReplayWhileInView).
 export default function CountUp({
   to,
   durationMs = 1200,
   suffix = "",
   className,
+  active = true,
 }: CountUpProps) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.6 });
   const reduce = useReducedMotion();
   const [value, setValue] = useState(0);
+  const started = useRef(false);
 
   useEffect(() => {
-    if (!inView) return;
+    if (!active || started.current) return;
+    started.current = true;
     const duree = reduce ? 0 : durationMs;
     let raf = 0;
     const start = performance.now();
@@ -36,10 +39,10 @@ export default function CountUp({
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [inView, to, durationMs, reduce]);
+  }, [active, to, durationMs, reduce]);
 
   return (
-    <span ref={ref} className={className}>
+    <span className={className}>
       {value}
       {suffix}
     </span>
