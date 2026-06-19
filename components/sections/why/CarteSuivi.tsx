@@ -16,8 +16,7 @@ function CalendarIcon({ className }: { className?: string }) {
   );
 }
 
-// Viz : calendrier semi-transparent (jour de visite qui pulse) + « 1/an »
-// translucide par-dessus. Pas de pourcentage.
+// Viz : calendrier (jour de visite qui pulse) + « 1/an » dessous (pleine opacité).
 function Viz({ active }: { active: boolean }) {
   const reduce = useReducedMotion();
   const cell = 18;
@@ -38,8 +37,8 @@ function Viz({ active }: { active: boolean }) {
   const hy = startY + 1 * (cell + gap) + cell / 2;
 
   return (
-    <div className="relative inline-flex items-center justify-center">
-      <svg width={76} height={76} viewBox="0 0 96 96" aria-hidden className="opacity-40">
+    <div className="flex flex-col items-center">
+      <svg width={58} height={58} viewBox="0 0 96 96" aria-hidden>
         <line x1={26} y1={6} x2={26} y2={18} stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" className="text-azur-soft" />
         <line x1={62} y1={6} x2={62} y2={18} stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" className="text-azur-soft" />
         <rect x={6} y={14} width={84} height={76} rx={10} fill="currentColor" className="text-ciel" />
@@ -60,11 +59,9 @@ function Viz({ active }: { active: boolean }) {
           style={{ transformBox: "fill-box", transformOrigin: "center" }}
         />
       </svg>
-      <div className="absolute inset-0 flex items-center justify-center">
-        <span className="text-base font-extrabold leading-none text-marine/80">
-          {data.valeurTexte}
-        </span>
-      </div>
+      <span className="-mt-0.5 text-base font-extrabold leading-none text-marine">
+        {data.valeurTexte}
+      </span>
     </div>
   );
 }

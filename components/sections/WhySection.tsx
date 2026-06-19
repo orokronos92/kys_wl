@@ -9,7 +9,7 @@ import CartePlaque from "./why/CartePlaque";
 export default function WhySection() {
   return (
     <SectionWrapper id="pourquoi-agir" className="bg-white">
-      <div className="mx-auto w-full max-w-md px-5 py-20 sm:max-w-xl lg:max-w-2xl">
+      <div className="mx-auto w-full max-w-md px-5 pb-7 pt-20 sm:max-w-xl lg:max-w-2xl">
         <p className="text-sm font-semibold uppercase tracking-widest text-azur">
           Le constat chiffré
         </p>

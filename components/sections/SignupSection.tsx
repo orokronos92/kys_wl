@@ -9,7 +9,7 @@ export default function SignupSection() {
       id="inscription"
       className="bg-gradient-to-b from-white to-ciel"
     >
-      <div className="mx-auto w-full max-w-md px-5 py-20 sm:max-w-xl lg:max-w-2xl">
+      <div className="mx-auto w-full max-w-md px-5 pb-20 pt-7 sm:max-w-xl lg:max-w-2xl">
         <SignupForm />
 
         <div className="mt-12 flex flex-col items-center gap-3 text-center">

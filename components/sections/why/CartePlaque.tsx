@@ -8,12 +8,12 @@ import { ShieldIcon } from "@/components/icons/PillarIcons";
 
 const data = whyStats.plaque;
 
-// Demi-jauge SVG semi-transparente : arc qui se remplit + aiguille qui pivote
-// jusqu'au « niveau de plaque » (50 %), avec le chiffre translucide par-dessus.
+// Demi-jauge SVG : arc qui se remplit + aiguille qui pivote jusqu'au « niveau de
+// plaque » (50 %), avec le chiffre dessous. Pleine opacité.
 function HalfGauge({ value, active }: { value: number; active: boolean }) {
   const reduce = useReducedMotion();
   const pct = Math.min(100, Math.max(0, value)) / 100;
-  const size = 80;
+  const size = 78;
   const stroke = 8;
   const r = (size - stroke) / 2;
   const cx = size / 2;
@@ -22,7 +22,7 @@ function HalfGauge({ value, active }: { value: number; active: boolean }) {
   const angle = -90 + pct * 180;
 
   return (
-    <svg width={size} height={cy + stroke} className="overflow-visible opacity-40">
+    <svg width={size} height={cy + stroke} className="overflow-visible">
       <path
         d={`M ${stroke / 2} ${cy} A ${r} ${r} 0 0 1 ${size - stroke / 2} ${cy}`}
         fill="none"
@@ -59,16 +59,14 @@ function HalfGauge({ value, active }: { value: number; active: boolean }) {
 function Viz({ active }: { active: boolean }) {
   const v = data.valeur ?? 0;
   return (
-    <div className="relative inline-flex items-center justify-center">
+    <div className="flex flex-col items-center">
       <HalfGauge value={v} active={active} />
-      <div className="absolute inset-0 flex items-end justify-center pb-0.5">
-        <CountUp
-          to={v}
-          suffix="%"
-          active={active}
-          className="text-base font-extrabold text-marine/80"
-        />
-      </div>
+      <CountUp
+        to={v}
+        suffix="%"
+        active={active}
+        className="-mt-2 text-base font-extrabold text-marine"
+      />
     </div>
   );
 }

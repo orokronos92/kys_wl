@@ -7,15 +7,15 @@ import CountUp from "@/components/why/CountUp";
 
 const data = whyStats.usure;
 
-// Viz : dent (émail plus clair = érosion) + barre qui se remplit, le tout
-// semi-transparent, avec le chiffre (38 %) translucide par-dessus.
+// Viz : dent (émail plus clair = érosion) + chiffre, et une barre qui se remplit
+// jusqu'à la valeur (38 %). Pleine opacité.
 function Viz({ active }: { active: boolean }) {
   const reduce = useReducedMotion();
   const v = data.valeur ?? 0;
   return (
-    <div className="relative inline-flex items-center justify-center">
-      <div className="flex flex-col items-center opacity-40">
-        <svg viewBox="0 0 32 40" className="h-12 w-auto" fill="none" aria-hidden>
+    <div className="flex flex-col items-center">
+      <div className="flex items-center gap-1.5">
+        <svg viewBox="0 0 32 40" className="h-9 w-auto" fill="none" aria-hidden>
           <path
             d="M16 2C9 2 3 5 3 12c0 5 2 8 3 13 1 4 1 10 4 12 2 1 3-3 3-7s1-5 3-5 3 1 3 5 1 8 3 7c3-2 3-8 4-12 1-5 3-8 3-13C32 5 23 2 16 2Z"
             stroke="currentColor"
@@ -29,21 +29,19 @@ function Viz({ active }: { active: boolean }) {
             className="text-azur-soft/40"
           />
         </svg>
-        <div className="mt-1.5 h-2 w-16 overflow-hidden rounded-full bg-ciel-deep">
-          <motion.div
-            className="h-full rounded-full bg-gradient-to-r from-azur to-azur-soft"
-            initial={{ width: 0 }}
-            animate={{ width: active ? `${v}%` : 0 }}
-            transition={{ duration: reduce ? 0 : 1.1, ease: [0.22, 1, 0.36, 1] }}
-          />
-        </div>
-      </div>
-      <div className="absolute inset-0 flex items-center justify-center">
         <CountUp
           to={v}
           suffix="%"
           active={active}
-          className="text-base font-extrabold text-marine/80"
+          className="text-lg font-extrabold leading-none text-marine"
+        />
+      </div>
+      <div className="mt-2 h-2 w-16 overflow-hidden rounded-full bg-ciel-deep">
+        <motion.div
+          className="h-full rounded-full bg-gradient-to-r from-azur to-azur-soft"
+          initial={{ width: 0 }}
+          animate={{ width: active ? `${v}%` : 0 }}
+          transition={{ duration: reduce ? 0 : 1.1, ease: [0.22, 1, 0.36, 1] }}
         />
       </div>
     </div>
