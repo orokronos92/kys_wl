@@ -16,9 +16,9 @@ interface TileShellProps {
   renderViz: (tick: number, active: boolean) => ReactNode;
 }
 
-// Tuile compacte « Pourquoi agir tôt » : en-tête + viz animée + phrase-stat.
-// Le détail (pourquoi + puces) se déplie au tap. Pas de ligne « Source ».
-// Les animations se relancent en boucle tant que la tuile est visible.
+// Carte paysage « Pourquoi agir tôt » : texte à gauche (titre lisible en pleine
+// largeur), viz animée semi-transparente à droite. Détail dépliable au tap,
+// animations relancées en boucle tant que la carte est visible. Pas de « Source ».
 export default function TileShell({
   data,
   icon,
@@ -42,47 +42,51 @@ export default function TileShell({
         ease: [0.22, 1, 0.36, 1],
         delay: reduce ? 0 : index * 0.07,
       }}
-      className="flex flex-col rounded-2xl bg-white p-3.5 ring-1 ring-inset ring-ciel-deep"
+      className="rounded-2xl bg-white p-4 ring-1 ring-inset ring-ciel-deep"
     >
-      <div className="flex items-start gap-2">
-        <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-ciel text-azur ring-1 ring-inset ring-ciel-deep">
-          {icon}
-        </span>
-        <div className="min-w-0">
-          <h3 className="text-sm font-bold leading-tight text-marine">
-            {data.titre}
-          </h3>
-          <p className="text-xs font-medium leading-tight text-azur">
-            {data.soustitre}
+      <div className="flex items-center gap-3">
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-2">
+            <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-ciel text-azur ring-1 ring-inset ring-ciel-deep">
+              {icon}
+            </span>
+            <div className="min-w-0">
+              <h3 className="text-sm font-bold leading-tight text-marine sm:text-base">
+                {data.titre}
+              </h3>
+              <p className="text-xs font-medium leading-tight text-azur">
+                {data.soustitre}
+              </p>
+            </div>
+          </div>
+          <p className="mt-2 text-xs leading-snug text-marine/70">
+            {data.accroche}
           </p>
+          <button
+            type="button"
+            onClick={() => setOpen((o) => !o)}
+            aria-expanded={open}
+            className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-azur"
+          >
+            {open ? "Masquer" : "Pourquoi agir tôt"}
+            <span
+              className={`transition-transform ${open ? "rotate-90" : ""}`}
+              aria-hidden
+            >
+              ›
+            </span>
+          </button>
+        </div>
+
+        <div className="flex w-[84px] shrink-0 items-center justify-center">
+          {renderViz(tick, inView)}
         </div>
       </div>
-
-      <div className="mt-3 flex flex-1 flex-col items-center justify-center text-center">
-        {renderViz(tick, inView)}
-        <p className="mt-2 text-xs leading-snug text-marine/70">
-          {data.accroche}
-        </p>
-      </div>
-
-      <button
-        type="button"
-        onClick={() => setOpen((o) => !o)}
-        aria-expanded={open}
-        className="mt-3 inline-flex items-center justify-center gap-1 text-xs font-semibold text-azur"
-      >
-        {open ? "Masquer" : "Pourquoi agir tôt"}
-        <span
-          className={`transition-transform ${open ? "rotate-90" : ""}`}
-          aria-hidden
-        >
-          ›
-        </span>
-      </button>
 
       <AnimatePresence initial={false}>
         {open && (
           <motion.div
+            key="detail"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}

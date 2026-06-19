@@ -22,7 +22,7 @@ export default function WhySection() {
         </p>
 
         <div className="mt-8 rounded-3xl bg-ciel p-3 shadow-xl shadow-marine/5 ring-1 ring-inset ring-ciel-deep sm:p-4">
-          <div className="grid grid-cols-2 gap-3">
+          <div className="flex flex-col gap-3">
             <CarteCaries index={0} />
             <CarteSuivi index={1} />
             <CarteUsure index={2} />
