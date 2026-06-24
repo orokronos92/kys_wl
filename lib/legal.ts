@@ -18,8 +18,8 @@ export const HEBERGEUR = {
   note: "Données hébergées dans l'Union européenne (datacenter situé en France).",
 } as const;
 
-// ⚠️ À CONFIRMER par le client — adresse de contact pour l'exercice des droits RGPD.
-export const EMAIL_RGPD = "contact@kys-app.fr";
+// Adresse de contact pour l'exercice des droits RGPD.
+export const EMAIL_RGPD = "admin@kys.technology";
 
 // Durée de conservation des données (référentiel CNIL prospection).
 export const DUREE_CONSERVATION = "3 ans à compter de votre dernier contact";
