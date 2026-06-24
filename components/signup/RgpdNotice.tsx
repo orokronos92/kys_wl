@@ -1,8 +1,7 @@
-// Adresse de contact pour l'exercice des droits RGPD.
-// TODO client : confirmer l'adresse définitive et l'entité juridique KYS.
-export const CONTACT_RGPD = "contact@kys-app.fr";
+import { SOCIETE, EMAIL_RGPD, DUREE_CONSERVATION } from "@/lib/legal";
 
 // Mention d'information RGPD (PRD §8) — dépliable natif, accessible, sans JS.
+// Synthèse ; le détail complet est sur la page /confidentialite.
 export default function RgpdNotice() {
   return (
     <details className="group mt-4 rounded-2xl bg-ciel/50 px-4 py-3 text-sm text-marine/80 ring-1 ring-inset ring-ciel-deep">
@@ -18,7 +17,7 @@ export default function RgpdNotice() {
       <div className="mt-3 space-y-2 leading-relaxed">
         <p>
           <strong className="font-semibold text-marine">Responsable :</strong>{" "}
-          KYS (entité en cours de constitution).
+          {SOCIETE.nom}.
         </p>
         <p>
           <strong className="font-semibold text-marine">
@@ -29,22 +28,35 @@ export default function RgpdNotice() {
         <p>
           <strong className="font-semibold text-marine">Finalité :</strong>{" "}
           rejoindre la liste d&apos;attente, mesurer l&apos;intérêt du marché et
-          vous recontacter éventuellement selon votre profil.
+          vous recontacter au sujet de KYS.
+        </p>
+        <p>
+          <strong className="font-semibold text-marine">Base légale :</strong>{" "}
+          votre consentement.
         </p>
         <p>
           <strong className="font-semibold text-marine">Conservation :</strong>{" "}
-          limitée à la phase de lancement du projet.
+          {DUREE_CONSERVATION}.
         </p>
         <p>
           <strong className="font-semibold text-marine">Vos droits :</strong>{" "}
-          accès, rectification et effacement sur simple demande à{" "}
+          accès, rectification, effacement, opposition, limitation, portabilité
+          et retrait du consentement sur simple demande à{" "}
           <a
-            href={`mailto:${CONTACT_RGPD}`}
+            href={`mailto:${EMAIL_RGPD}`}
             className="font-medium text-azur underline underline-offset-2"
           >
-            {CONTACT_RGPD}
+            {EMAIL_RGPD}
           </a>
-          .
+          , ou réclamation auprès de la CNIL.
+        </p>
+        <p>
+          <a
+            href="/confidentialite"
+            className="font-medium text-azur underline underline-offset-2"
+          >
+            Politique de confidentialité complète
+          </a>
         </p>
       </div>
     </details>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Inter } from "next/font/google";
 import "./globals.css";
+import Footer from "@/components/Footer";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -30,7 +31,10 @@ export default function RootLayout({
       lang="fr"
       className={`${inter.variable} ${bricolage.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-white">{children}</body>
+      <body className="min-h-full bg-white">
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
