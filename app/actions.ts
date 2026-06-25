@@ -5,6 +5,7 @@ import { db } from "@/db";
 import { inscriptions, parametresOffre, reponses } from "@/db/schema";
 import type { QuestionId } from "@/lib/questions";
 import { OFFRE_DEFAUTS, type OffreState } from "@/lib/offre";
+import { notifierNouvelInscrit } from "@/lib/mailer";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -97,6 +98,14 @@ export async function inscrire(input: InscriptionInput): Promise<ActionResult> {
       const placesRestantes = Math.max(0, seuil - (placesOffset + total + 1));
       return { rang, estFondateur, placesRestantes };
     });
+
+    // Notification e-mail (best-effort) : ne bloque jamais l'inscription.
+    void notifierNouvelInscrit({
+      email,
+      rang: resultat.rang,
+      estFondateur: resultat.estFondateur,
+      answers: input.answers,
+    }).catch((e) => console.error("notif inscrit:", e));
 
     return { ok: true, ...resultat };
   } catch (error) {

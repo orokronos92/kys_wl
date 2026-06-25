@@ -5,6 +5,8 @@ services:
       dockerfile: Dockerfile
     container_name: kys-wl
     restart: always
+    env_file:
+      - .env
     environment:
       - NODE_ENV=production
       - DATABASE_PATH=/app/data/kys.db
